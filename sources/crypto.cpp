@@ -45,7 +45,7 @@ void Crypto::MethodCaesar()
 					cryptoword[i] = cryptoalphabet[(j + key) % cryptoalphabet.size()];
 					break;
 				}
-		std::cout << "Зашифрованное сообщение - " << cryptoword;
+		std::cout << "Зашифрованное сообщение - " << cryptoword<<std::endl;
 		break;
 	}
 	case 2:
@@ -57,7 +57,7 @@ void Crypto::MethodCaesar()
 					cryptoword[i] = cryptoalphabet[(j - key) % cryptoalphabet.size()];
 					break;
 				}
-		std::cout << "Дешифрованное сообщение - " << cryptoword;
+		std::cout << "Дешифрованное сообщение - " << cryptoword<<std::endl;
 		break;
 	}
 	}
@@ -127,22 +127,36 @@ void Crypto::MethodSlogan()
 			{
 				if (cryptoword[i] == cryptoalphabet[j])
 					wordsymb = j;
-				else if (key[i] == cryptoalphabet[j])
+				if (key[i] == cryptoalphabet[j])
 					keysymb = j;
 			}
 			cryptoword[i] = cryptoalphabet[(wordsymb + keysymb) % cryptoalphabet.size()];
 			wordsymb = 0;
 			keysymb = 0;
 		}
-	}
-		std::cout << "Зашифрованное сообщение - " << cryptoword;
+	
+		std::cout << "Зашифрованное сообщение - " << cryptoword<<std::endl;
 		break;
 	}
-case 2:
-{
-	std::cout << "Дешифрованное сообщение - " << cryptoword;
+	case 2:
+	{
+	 for (int i = 0; i < cryptoword.size(); ++i)
+                {
+                        for (int j = 0; j < cryptoalphabet.size(); ++j)
+                        {
+                                if (cryptoword[i] == cryptoalphabet[j])
+                                        wordsymb = j;
+                                if (key[i] == cryptoalphabet[j])
+                                        keysymb = j;
+                        }
+                        cryptoword[i] = cryptoalphabet[(wordsymb - keysymb) % cryptoalphabet.size()];
+                        wordsymb = 0;
+                        keysymb = 0;
+                }
+
+	std::cout << "Дешифрованное сообщение - " << cryptoword<<std::endl;
 	break;
-}
+	}
 }
 }
  
@@ -170,7 +184,6 @@ bool CorrectInputData(std::string word, std::string alphabet)
  
 int Interface::ChosenFunction()
 {
-	setlocale(LC_ALL, "Russian");
 	int chosenValue;
 	std::cout << "Выберите одну из операций:" << std::endl;
 	std::cout << "1. Шифр Цезаря" << std::endl;
@@ -191,6 +204,9 @@ void Interface::MakeDecision(int chosenValue, Crypto *crypto)
 		case 1:
 		{
 			crypto->MethodCaesar();
+			int chosenValue =ChosenFunction();
+			MakeDecision(chosenValue, crypto);
+
 			break;
 		}
 		case 2:
@@ -198,6 +214,12 @@ void Interface::MakeDecision(int chosenValue, Crypto *crypto)
 			crypto->MethodSlogan();
 			break;
 		}
+		case 7:
+		{
+			exit(0);
+			break;
+		}
 	}
+
 }
 }
