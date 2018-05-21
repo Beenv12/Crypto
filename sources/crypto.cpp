@@ -301,7 +301,54 @@ namespace HWCrypto
 			}
 		}
 	}
-
+	
+	void Crypto::save()
+	{
+		std::cout<<"Введите путь к файлу"<<std::endl;
+		std::string path;
+		std::string answer;
+		std::cin>>path;
+		std::ofstream file;
+		std::ifstream filecheck;
+		filecheck.open(path);
+;
+		if(!filecheck)
+		{
+			file.open(path);	
+			file<<cryptoword;
+			file.close();
+                        std::cout<<"Сообщение было успешно сохранено"<<std::endl;
+		}	
+		else
+		{
+			std::cout<<"Файл уже существует, перезаписать ? (yes/no)"<<std::endl;
+			std::cin>>answer;
+			if (answer=="yes")
+			{
+				file.open(path);
+				file<<cryptoword;
+				file.close();
+				std::cout<<"Сообщение было успешно сохранено"<<std::endl;
+			}
+			filecheck.close();
+		}	
+	}
+	void Crypto::load()
+	{
+		std::cout<<"Введите путь к файлу"<<std::endl;
+                std::string path;
+		std::cin>>path;
+		std::ifstream file;
+		file.open(path);
+		if(!file)
+			std::cout<<"Файл c заданным путем не существует"<<std::endl;
+		else
+		{
+			cryptoword="";
+			file>>cryptoword;
+			std::cout<<"Файл успешно считан"<<std::endl;
+		}
+	}
 
 
 	bool CorrectInputData(std::string word, std::string alphabet)
@@ -373,9 +420,33 @@ namespace HWCrypto
                                 MakeDecision(chosenValue, crypto);
                                 break;
 			}
+			case 5:
+			{
+				crypto->save();
+                                int chosenValue =ChosenFunction();
+                                MakeDecision(chosenValue, crypto);
+                                break;
+			}
+			case 6:
+                        {
+                                crypto->load();
+                                int chosenValue =ChosenFunction();
+                                MakeDecision(chosenValue, crypto);
+                                break;
+                        }
+
 			case 7:
 			{
-				exit(0);
+				std::cout<< "Вы уверены, что хотите выйти из программы? (yes/no)"<<std::endl;
+				std::string answer;
+				std::cin>>answer;
+				if (answer=="yes")
+					exit(0);
+				else 
+				{
+					int chosenValue =ChosenFunction();
+                                	MakeDecision(chosenValue, crypto);
+				}
 				break;
 			}
 		}
