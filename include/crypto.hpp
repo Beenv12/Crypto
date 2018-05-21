@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
-
+#include <vector>
 namespace HWCrypto
 	{
 	class Crypto
@@ -10,6 +10,8 @@ namespace HWCrypto
 		Crypto(std::string word, std::string alphabet);
 		void MethodCaesar();
 		void MethodSlogan();
+		void MethodVizhiner();
+		void MethodGamma();
 		~Crypto();
 		private:
 		std::string cryptoword;

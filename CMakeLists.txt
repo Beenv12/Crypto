@@ -35,3 +35,4 @@ install(TARGETS crypto
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
 install(EXPORT crypto-config DESTINATION cmake)
+include(CPackConfig.cmake)
